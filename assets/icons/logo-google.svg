@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <!-- E-Kinerja Harian ASN - Official Google-style Folded Ribbon Product Icon -->
+  <defs>
+    <filter id="m3-shadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  
+  <g filter="url(#m3-shadow)">
+    <!-- Blue Base Ribbon (Left & Bottom-Left Spine) -->
+    <path d="M12 12C12 9.79086 13.7909 8 16 8H26L18 20H12V12Z" fill="#4285F4"/>
+    <path d="M12 18V36C12 38.2091 13.7909 40 16 40H26L20 32H16V22L12 18Z" fill="#1A73E8"/>
+    <path d="M16 40H32C34.2091 40 36 38.2091 36 36V28L28 34H18L16 40Z" fill="#4285F4"/>
+
+    <!-- Red Top Fold Ribbon -->
+    <path d="M24 8H32C34.2091 8 36 9.79086 36 12V20L30 14H22L24 8Z" fill="#EA4335"/>
+    <path d="M30 14L36 20H30V14Z" fill="#D93025"/>
+
+    <!-- Yellow Right & Accent Ribbon -->
+    <path d="M36 18V36C36 38.2091 34.2091 40 32 40L36 34V22L36 18Z" fill="#F9AB00"/>
+    <path d="M36 20V32L30 36H24L32 26L36 20Z" fill="#FBBC04"/>
+
+    <!-- Google Green Central Checkmark (Verification & Capaian Kinerja) -->
+    <path d="M17 25L23 31L37 13" stroke="#34A853" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Checkmark Dimensional Overlay / Fold Highlights -->
+    <path d="M17 25L23 31" stroke="#0F9D58" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="37" cy="13" r="1.5" fill="#ffffff"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+node_modules/
+.clasp.json
+.claspignore.local
+*.log
+*.zip
+*.sha256
+/.env*

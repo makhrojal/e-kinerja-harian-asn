@@ -1,0 +1,23 @@
+{
+  "name": "e-kinerja-harian-asn",
+  "version": "0.8.16",
+  "description": "Log aktivitas pribadi ASN dengan Google Sheets; bukan pengukuran resmi SKP.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node build.mjs && node test.mjs",
+    "verify:public": "node verify-public.mjs",
+    "serve": "node serve.mjs",
+    "icons": "node scripts/generate-icon-kit.mjs",
+    "benchmark": "node benchmark.mjs"
+  },
+  "keywords": [
+    "google-apps-script",
+    "e-kinerja",
+    "apple-hig",
+    "todoist",
+    "activity-log"
+  ],
+  "author": "Mhd. Makhrojal Nasution",
+  "license": "MIT"
+}
