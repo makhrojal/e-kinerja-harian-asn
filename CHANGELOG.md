@@ -6,6 +6,7 @@
 - Menambahkan endpoint penghapusan dengan `ScriptLock`, optimistic locking berbasis `Revisi`, retry idempoten setelah respons jaringan hilang, serta penolakan saat unggahan file masih berjalan.
 - Mempertahankan file lampiran di Drive pemilik dan membuat snapshot lama gagal tertutup jika kegiatan sumber sudah dihapus.
 - Menambah regresi backend dan UI; total 73 kelompok tes deterministik lulus.
+- Menambahkan ledger provenance aset, menetralkan nama SVG aplikasi, mencatat lisensi Inter, dan menambah gate yang menolak nama atau klaim yang menyiratkan afiliasi resmi Google.
 
 ## 0.8.16 — 2026-09-15
 

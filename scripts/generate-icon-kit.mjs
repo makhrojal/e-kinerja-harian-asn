@@ -13,7 +13,7 @@ if (!fs.existsSync(iconsDir)) {
   fs.mkdirSync(iconsDir, { recursive: true });
 }
 
-const masterSvgPath = path.join(iconsDir, 'logo-google.svg');
+const masterSvgPath = path.join(iconsDir, 'logo-ekinerja.svg');
 if (!fs.existsSync(masterSvgPath)) {
   throw new Error(`Master SVG not found at ${masterSvgPath}`);
 }
@@ -337,7 +337,7 @@ const manifestData = {
       purpose: "maskable"
     },
     {
-      src: "./assets/icons/logo-google.svg",
+      src: "./assets/icons/logo-ekinerja.svg",
       sizes: "any",
       type: "image/svg+xml",
       purpose: "any"
