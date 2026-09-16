@@ -1,5 +1,5 @@
 {
-  "version": "0.8.16",
+  "version": "0.8.17",
   "scope": "Deterministic source/backend/DOM/RPC mocks; cloud latency and physical mobile validation separate",
   "passed": [
     "Private per-copy deployment manifest remains fail-closed and declares report scopes",
@@ -13,6 +13,7 @@
     "Private profile CRUD validates enums, resists stale writes, and stores literal text",
     "Two simulated installations keep Script Properties and spreadsheet access isolated",
     "Stable-ID retry does not duplicate",
+    "Activity deletion is revision-safe, idempotent, and releases the lock",
     "WFH report snapshot freezes profile and activity revisions before preview confirmation",
     "WFH export is reserved outside long file work and response-loss retry returns the same Drive files",
     "Server verifies exported PDF MIME, signature, minimum size, and SHA-256 before committing export metadata",
@@ -50,6 +51,7 @@
     "WFH profile route keeps the existing form usable when moved inside Rekap",
     "Clipboard denied provides manual fallback",
     "Escape preserves unsaved form",
+    "Edit form exposes a contextual, explicit activity deletion confirmation",
     "No fabricated Quick Add result or author database/link",
     "Distribution creates a separate empty master and explains source installation and private deployment",
     "Drive-dependent template and WFH actions expose a recoverable and informed in-app authorization gate",
@@ -75,10 +77,10 @@
     "Package, server, visible badge, and generated bundle versions stay synchronized"
   ],
   "sourceHashes": {
-    "Server.gs": "46cd423238c949dea6dcc96bc4edbf28526585fe44f79e95debaf3267df998f8",
-    "Index.html": "a4eaf2b359c9e3a77b673db45b4bc20dd821b75490a98cbd2a1062e510153ad0",
+    "Server.gs": "3681a082e00f8369b40927d0bedbfde2ab57d27fe39403d8e4e0b684b07f5176",
+    "Index.html": "3c6ef1e1c0a7aa254d5a96cc3d3103c158ecae1e86f89ef446a094a10d6c5a61",
     "client-domain.js": "663e34a3aee9c860beae7a9bdc842dbd2ee74d2490e192a305fa4bdfefcbb968",
     "client-sync.js": "25cebaf669c333a42d868f54b4d3e7cff66d5aa9cc0379e579b83680feea8bf2",
-    "Kode.gs": "9a510b09c46b13092429d9a239616479b3e1ab75e2cd2d3cce169d7022040188"
+    "Kode.gs": "51148028b7c37dd9552b933abe29e90231fc2fa96589d62227edb1455748a250"
   }
 }

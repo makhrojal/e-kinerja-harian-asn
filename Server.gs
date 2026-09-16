@@ -1,5 +1,5 @@
-/** @version 0.8.16 · Private installation. No author database fallback. */
-const APP_VERSION = '0.8.16';
+/** @version 0.8.17 · Private installation. No author database fallback. */
+const APP_VERSION = '0.8.17';
 const HEADERS = ['ID','Tanggal','Kegiatan','Hasil','Bukti','Status','Tindak lanjut','Dibuat','Diperbarui','Revisi'];
 const TAB_NAME = 'Catatan Harian';
 const PUBLIC_TEMPLATE_PROPERTY = 'PUBLIC_TEMPLATE_SPREADSHEET_ID';
@@ -490,5 +490,19 @@ function saveRecord(input){
     if(saved.version!==r.version||!['id','date','activity','result','evidence','status','followup'].every(k=>saved[k]===r[k]))
       throw new Error('Baca balik belum sesuai. Muat ulang untuk memeriksa hasil simpan.');
     return saved;
+  });
+}
+function deleteRecord(id,expectedVersion){
+  id=text_(String(id||''),80,'ID');const expected=Number(expectedVersion);
+  if(!/^[a-zA-Z0-9-]{8,80}$/.test(id))throw new Error('ID tidak valid.');
+  if(!Number.isInteger(expected)||expected<1)throw new Error('Revisi tidak valid.');
+  return withLock_(function(){
+    const book=book_(),sh=coreSheetForBook_(book),found=all_(sh).find(function(row){return row.id===id;});
+    if(!found)return {deleted:true,id:id,alreadyDeleted:true,attachmentsRetained:0};
+    if(found.version!==expected)throw new Error('Catatan sudah berubah di sesi lain. Muat ulang sebelum menghapus.');
+    const attachmentSheet=book.getSheetByName('Attachments'),related=attachmentSheet?attachments_(attachmentSheet).filter(function(item){return item.activityId===id&&item.state!=='detached';}):[];
+    if(related.some(function(item){return item.state==='uploading'||item.state==='uploaded';}))throw new Error('ATTACHMENT: Selesaikan atau pulihkan unggahan sebelum menghapus kegiatan.');
+    sh.deleteRow(found._row);SpreadsheetApp.flush();
+    return {deleted:true,id:id,date:found.date,activity:found.activity,version:found.version,alreadyDeleted:false,attachmentsRetained:related.filter(function(item){return !!item.fileId;}).length};
   });
 }

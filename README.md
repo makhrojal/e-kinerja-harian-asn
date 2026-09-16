@@ -2,7 +2,7 @@
 
 Aplikasi pencatatan kegiatan pribadi berbasis Google Sheets dan Google Apps Script. Ini alat bantu kerja mandiri, bukan portal resmi BKN atau sistem penilaian SKP.
 
-**Status paket:** Beta v0.8.16 berlisensi MIT. Source telah melewati regresi deterministik dan pemindaian privasi; uji akun Google kedua serta perangkat fisik tetap bagian dari pengujian Beta.
+**Status paket:** Beta v0.8.17 berlisensi MIT. Source telah melewati 73 kelompok regresi deterministik dan pemindaian privasi; uji akun Google kedua serta perangkat fisik tetap bagian dari pengujian Beta.
 
 Kode dan aset asli dalam paket ini menggunakan [lisensi MIT](LICENSE). Merek dan layanan Google tetap milik pemegang hak masing-masing; aplikasi ini bukan produk resmi Google atau BKN.
 
@@ -29,6 +29,7 @@ Menyalin spreadsheet saja tidak otomatis menyalin source/deployment Apps Script.
 - Data inti tetap berada pada sepuluh kolom `Catatan Harian`; profil, lampiran, dan snapshot laporan memakai tab pendukung di spreadsheet yang sama.
 - Lampiran disimpan privat di Google Drive pemilik. Batas aplikasi saat ini 5 file per kegiatan, 10 MB per file, dengan format PDF, DOCX, XLSX, JPEG, atau PNG.
 - Laporan WFH dibuat dari kegiatan yang dipilih secara eksplisit. Periksa pratinjau sebelum membuat Google Docs, DOCX, atau PDF.
+- Untuk menghapus kegiatan, buka kegiatan dari Home, Kalender, atau Kanban, pilih **Edit**, lalu klik **Hapus kegiatan**. Aplikasi memeriksa revisi terbaru dan meminta konfirmasi dampak; file lampiran tetap berada di Drive pemilik.
 - Fitur dan hak akses tambahan harus diuji pada salinan pribadi sebelum digunakan untuk data kerja nyata.
 
 ## Build dan tes

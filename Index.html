@@ -1712,6 +1712,12 @@ textarea::placeholder, input::placeholder {
   align-self: center;
 }
 
+.danger-button{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 38%,var(--border-subtle));background:var(--danger-bg)}
+.danger-button:hover{color:#fff!important;border-color:var(--danger)!important;background:var(--danger)!important}
+.delete-activity-dialog{max-width:460px}
+.delete-activity-dialog .delete-summary{margin:14px 0;padding:12px 14px;border:1px solid var(--border-subtle);border-radius:var(--radius-md);background:var(--bg-app);font-weight:600;color:var(--ink-primary)}
+.delete-activity-dialog .delete-warning{color:var(--ink-secondary);font-size:13px;line-height:1.55}
+
 #formMessage {
   font-size: 12px;
   color: var(--danger);
@@ -3357,7 +3363,7 @@ dialog::backdrop {
         <span>Install Aplikasi</span>
       </button>
       <div class="semver-badge">
-        <span class="semver-tag">v0.8.16</span>
+        <span class="semver-tag">v0.8.17</span>
         <span>Catatan pribadi ASN</span>
       </div>
       <div class="hotkey-hint">
@@ -3851,6 +3857,7 @@ dialog::backdrop {
           <div id="formMessage" role="status"></div>
           <div class="formactions">
             <span class="formstate" id="draftState">Belum ada perubahan</span>
+            <button type="button" id="deleteActivityBtn" class="danger-button" hidden>Hapus kegiatan</button>
             <button type="button" id="cancel">Batal (Esc)</button>
             <button type="submit" id="save" class="primary">Simpan kegiatan</button>
           </div>
@@ -3858,9 +3865,20 @@ dialog::backdrop {
       </div>
     </section>
 
-    <footer>Jumlah kegiatan adalah ringkasan pencatatan, bukan penilaian kinerja. Zona tanggal mengikuti setelan spreadsheet.<span id="buildVersion">v0.8.16</span> · Streak: hari kalender dengan catatan; hari ini boleh belum terisi.</footer>
+    <footer>Jumlah kegiatan adalah ringkasan pencatatan, bukan penilaian kinerja. Zona tanggal mengikuti setelan spreadsheet.<span id="buildVersion">v0.8.17</span> · Streak: hari kalender dengan catatan; hari ini boleh belum terisi.</footer>
   </main>
 </div>
+
+<dialog id="deleteActivityDialog" class="delete-activity-dialog" aria-labelledby="deleteActivityTitle">
+  <h2 id="deleteActivityTitle">Hapus kegiatan?</h2>
+  <p class="delete-warning">Kegiatan akan dihapus dari Catatan Harian dan tidak lagi muncul di kalender, Kanban, atau rekap. Snapshot laporan lama yang memuat kegiatan ini tidak dapat diekspor ulang.</p>
+  <div id="deleteActivitySummary" class="delete-summary"></div>
+  <p class="delete-warning">File lampiran tidak ikut dihapus dan tetap tersimpan privat di Google Drive.</p>
+  <div class="dialog-actions">
+    <button type="button" id="cancelDeleteActivity">Batal</button>
+    <button type="button" id="confirmDeleteActivity" class="danger-button">Hapus kegiatan</button>
+  </div>
+</dialog>
 
 <!-- Floating Multi-Select Batch Action Bar (TASK-602) -->
 <div id="batchBar" class="batch-bar" role="toolbar" aria-label="Aksi Seleksi Massal" hidden>
@@ -4125,7 +4143,7 @@ function call(name,...args){
  return Promise.resolve().then(()=>{const data=JSON.parse(localStorage.getItem(localKey)||'[]');
  if(name==='getRecord')return data.find(r=>r.id===args[0])||null;
  if(name==='getRecords')return data.filter(r=>r.date>=args[0]&&r.date<=args[1]);
- if(name==='getSnapshot')return {version:'0.8.16-demo',timeZone:'Asia/Jakarta',today:Domain.ymd(new Date(),'Asia/Jakarta'),spreadsheetUrl:'',records:data.filter(r=>r.date>=args[0]&&r.date<=args[1]),todayRecords:data.filter(r=>r.date===Domain.ymd(new Date(),'Asia/Jakarta')),activeDates:data.map(r=>r.date)};
+ if(name==='getSnapshot')return {version:'0.8.17-demo',timeZone:'Asia/Jakarta',today:Domain.ymd(new Date(),'Asia/Jakarta'),spreadsheetUrl:'',records:data.filter(r=>r.date>=args[0]&&r.date<=args[1]),todayRecords:data.filter(r=>r.date===Domain.ymd(new Date(),'Asia/Jakarta')),activeDates:data.map(r=>r.date)};
  if(name==='getDistributionInfo')return {ready:false,copyUrl:'',reason:'Master template publik belum tersedia dalam mode demo.'};
  if(name==='getDriveAuthorizationStatus')return {authorized:true,authorizationUrl:''};
  if(name==='getAttachments')return JSON.parse(localStorage.getItem(attachmentLocalKey)||'[]').filter(a=>a.activityId===args[0]&&a.state!=='detached');
@@ -4135,6 +4153,7 @@ function call(name,...args){
  }
  if(name==='recoverAttachment'){const items=JSON.parse(localStorage.getItem(attachmentLocalKey)||'[]'),attachment=items.find(a=>a.uploadSessionId===args[0]),record=attachment&&data.find(r=>r.id===attachment.activityId);if(!attachment||!record)throw new Error('Unggahan tidak ditemukan.');attachment.state='linked';localStorage.setItem(attachmentLocalKey,JSON.stringify(items));return {attachment,record,recovered:true};}
  if(name==='detachAttachment'){const items=JSON.parse(localStorage.getItem(attachmentLocalKey)||'[]'),attachment=items.find(a=>a.attachmentId===args[0]),record=attachment&&data.find(r=>r.id===attachment.activityId);if(!attachment||!record)throw new Error('Lampiran tidak ditemukan.');attachment.state='detached';record.evidence=record.evidence.split(/\r?\n/).filter(v=>v&&v!==attachment.url).join('\n');record.version++;localStorage.setItem(localKey,JSON.stringify(data));localStorage.setItem(attachmentLocalKey,JSON.stringify(items));return {attachment,record};}
+ if(name==='deleteRecord'){const id=args[0],expected=Number(args[1]),index=data.findIndex(r=>r.id===id);if(index<0)return {deleted:true,id,alreadyDeleted:true,attachmentsRetained:0};const record=data[index];if(record.version!==expected)throw new Error('Catatan sudah berubah di sesi lain. Muat ulang sebelum menghapus.');const attachments=JSON.parse(localStorage.getItem(attachmentLocalKey)||'[]').filter(a=>a.activityId===id&&a.state!=='detached');if(attachments.some(a=>a.state==='uploading'||a.state==='uploaded'))throw new Error('Selesaikan atau pulihkan unggahan sebelum menghapus kegiatan.');data.splice(index,1);localStorage.setItem(localKey,JSON.stringify(data));return {deleted:true,id,date:record.date,activity:record.activity,version:record.version,alreadyDeleted:false,attachmentsRetained:attachments.filter(a=>a.fileId).length};}
  if(name==='getProfile')return JSON.parse(localStorage.getItem(profileLocalKey)||'{"version":0,"values":{}}');
  if(name==='saveProfile'){const current=JSON.parse(localStorage.getItem(profileLocalKey)||'{"version":0,"values":{}}'),input=args[0];if(current.version!==input.version)throw new Error('Profil berubah di sesi lain.');const saved={version:current.version+1,values:{...input}};delete saved.values.version;localStorage.setItem(profileLocalKey,JSON.stringify(saved));return saved;}
  if(name==='deleteProfile'){const current=JSON.parse(localStorage.getItem(profileLocalKey)||'{"version":0,"values":{}}');if(current.version!==args[0])throw new Error('Profil berubah di sesi lain.');const saved={version:current.version+1,values:{}};localStorage.setItem(profileLocalKey,JSON.stringify(saved));return saved;}
@@ -5001,6 +5020,7 @@ function openForm(r){
   editId=r?r.id:uuid();
   editVersion=r?r.version:0;
   $('formTitle').textContent=r?'Edit kegiatan':'Catat kegiatan';
+  $('deleteActivityBtn').hidden=!r;
   const pInfo=parsePriority(r?r.activity:'');
   $('priority').value=pInfo.priority;
   $('activity').value=pInfo.clean;
@@ -5071,6 +5091,30 @@ $('form').onsubmit=async e=>{
 };
 
 $('cancel').onclick=()=>{if(!busy&&!mutationBusy){resetForm();go('home');}};
+$('deleteActivityBtn').onclick=()=>{
+  if(busy||mutationBusy||editVersion<1)return;
+  const clean=parsePriority(($('priority').value!=='P4'?'['+$('priority').value+'] ':'')+$('activity').value.trim()).clean||'Kegiatan tanpa judul';
+  $('deleteActivitySummary').textContent=clean+(formDirty()?' · Perubahan yang belum disimpan akan dibuang.':'');
+  $('deleteActivityDialog').showModal();
+};
+$('cancelDeleteActivity').onclick=()=>{if(!busy)$('deleteActivityDialog').close();};
+$('confirmDeleteActivity').onclick=async()=>{
+  if(busy||mutationBusy||editVersion<1)return;
+  const targetId=editId,targetVersion=editVersion,targetDate=$('date').value;
+  lockForm(true);$('confirmDeleteActivity').disabled=true;$('cancelDeleteActivity').disabled=true;
+  try{
+    let result;
+    try{result=await call('deleteRecord',targetId,targetVersion);}
+    catch(error){
+      let canonical;try{canonical=await readWithRetry('getRecord',targetId);}catch(readError){throw error;}
+      if(canonical!==null)throw error;
+      result={deleted:true,id:targetId,date:targetDate,alreadyDeleted:true,attachmentsRetained:0};
+    }
+    $('deleteActivityDialog').close();monthCache.clear();selectedRecordIds.delete(targetId);reportSelectedIds.delete(targetId);selected=targetDate;resetForm();go('calendar');invalidateReport();
+    const loaded=await load(true),files=Number(result.attachmentsRetained||0);message('Kegiatan berhasil dihapus.'+(files?' '+files+' file lampiran tetap privat di Drive.':'')+(loaded?'':' Muat ulang data bila kalender belum berubah.'),!loaded);
+  }catch(error){$('deleteActivityDialog').close();$('formMessage').textContent='Kegiatan belum dihapus: '+error.message;await load(true);}
+  finally{lockForm(false);$('confirmDeleteActivity').disabled=false;$('cancelDeleteActivity').disabled=false;}
+};
 $('add').onclick=()=>openForm();
 $('refresh').onclick=()=>{invalidateReport();load(true);};
 
@@ -5372,6 +5416,7 @@ function resetForm(){
   $('priority').value='P4';
   $('formDateLabel').textContent=pretty(selected);
   $('formTitle').textContent='Catat kegiatan';
+  $('deleteActivityBtn').hidden=true;
   $('formMessage').textContent='';
   formBaseline=formSnapshot();
   $('draftState').textContent='Belum ada perubahan';

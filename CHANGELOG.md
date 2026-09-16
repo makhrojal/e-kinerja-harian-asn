@@ -1,5 +1,12 @@
 # Changelog kandidat publik
 
+## 0.8.17 — 2026-09-16
+
+- Menambahkan menu **Hapus kegiatan** pada formulir edit dengan dialog konfirmasi yang menjelaskan dampak pada kalender, Kanban, rekap, snapshot WFH, dan lampiran Drive.
+- Menambahkan endpoint penghapusan dengan `ScriptLock`, optimistic locking berbasis `Revisi`, retry idempoten setelah respons jaringan hilang, serta penolakan saat unggahan file masih berjalan.
+- Mempertahankan file lampiran di Drive pemilik dan membuat snapshot lama gagal tertutup jika kegiatan sumber sudah dihapus.
+- Menambah regresi backend dan UI; total 73 kelompok tes deterministik lulus.
+
 ## 0.8.16 — 2026-09-15
 
 - Menyatukan Profil, pilihan kegiatan, dan pratinjau nonmodal dalam ruang kerja WFH adaptif.

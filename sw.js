@@ -1,9 +1,9 @@
 /**
  * Service Worker E-Kinerja Harian ASN
- * Version: v0.8.16 (WFH workspace and verified PDF metadata)
+ * Version: v0.8.17 (safe activity deletion)
  * Purpose: Offline Application Shell Cache & Instant Navigation
  */
-const CACHE_NAME = 'ekinerja-shell-v0.8.16';
+const CACHE_NAME = 'ekinerja-shell-v0.8.17';
 const STATIC_ASSETS = [
   './',
   './Index.html',
