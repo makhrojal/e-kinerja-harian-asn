@@ -11,6 +11,9 @@ const allowed = new Set([
   'assets/icons/favicon-32x32.png','assets/icons/icon-192.png','assets/icons/icon-512.png',
   'assets/icons/icon-maskable-192.png','assets/icons/icon-maskable-512.png',
   'assets/icons/logo-ekinerja.svg','assets/icons/manifest.json',
+  'assets/screenshots/01-dashboard-dark.png','assets/screenshots/02-kanban-board.png',
+  'assets/screenshots/03-input-presets.png','assets/screenshots/04-wfh-workspace.png',
+  'assets/screenshots/05-shortcuts-cheatsheet.png','assets/screenshots/06-mobile-responsive.png',
   'release-v0.3.1/regression.mjs','release-v0.3.1/results.json','scripts/generate-icon-kit.mjs'
 ]);
 const excluded = new Set(['.git','node_modules']);
