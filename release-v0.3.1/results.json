@@ -1,5 +1,5 @@
 {
-  "version": "0.8.17",
+  "version": "0.8.18",
   "scope": "Deterministic source/backend/DOM/RPC mocks; cloud latency and physical mobile validation separate",
   "passed": [
     "Private per-copy deployment manifest remains fail-closed and declares report scopes",
@@ -73,14 +73,16 @@
     "Smart Natural Language Date & Priority Parser on Quick Add (ST1-01, Todoist Parity)",
     "PWA Service Worker Offline Application Shell Cache (BUG-PWA-01, ST1-14)",
     "End-to-End 5-Second Undo Action Verification with Animated Progress Countdown (QA-LEGACY-01, TASK-102)",
+    "Keyboard Shortcuts Cheatsheet and Power-User Navigation (ST1-11, FR-204)",
+    "Visual Streak Indicator, Preset ASN Activity Template Chips, Heatmap Glass Tooltip, and Reduced Motion (ST1-01, ST1-09, ST1-10, ST1-11, ST2-04)",
     "Generated bundle exactly contains current server and client sources",
     "Package, server, visible badge, and generated bundle versions stay synchronized"
   ],
   "sourceHashes": {
-    "Server.gs": "3681a082e00f8369b40927d0bedbfde2ab57d27fe39403d8e4e0b684b07f5176",
-    "Index.html": "3c6ef1e1c0a7aa254d5a96cc3d3103c158ecae1e86f89ef446a094a10d6c5a61",
+    "Server.gs": "7098610fa2b6e9af8c6ea37bed5b0f23917dd4fafa6b6dbdd775ee62175e5af9",
+    "Index.html": "e6d5e8f4ea184d7934513c6f95e2514fc6004a750c323484487e12239b4f17a4",
     "client-domain.js": "663e34a3aee9c860beae7a9bdc842dbd2ee74d2490e192a305fa4bdfefcbb968",
     "client-sync.js": "25cebaf669c333a42d868f54b4d3e7cff66d5aa9cc0379e579b83680feea8bf2",
-    "Kode.gs": "51148028b7c37dd9552b933abe29e90231fc2fa96589d62227edb1455748a250"
+    "Kode.gs": "e9565abf1b8a026ab7425d4e6beb2e3b7a9654ad4f07efffba95bcdb318e7550"
   }
 }

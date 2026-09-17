@@ -1,5 +1,13 @@
 # Changelog kandidat publik
 
+## 0.8.18 — 2026-09-17
+
+- Menambahkan dialog bantuan pintasan dan navigasi keyboard antartab untuk alur kerja desktop yang lebih cepat.
+- Menambahkan pilihan periode cepat pada Rekap serta preset narasi kegiatan ASN pada form lengkap dan Catat Cepat.
+- Memperjelas indikator streak, tooltip heatmap, tema gelap, dan perilaku `prefers-reduced-motion` tanpa mengubah skema database 10 kolom.
+- Menyelaraskan cache Service Worker ke `ekinerja-shell-v0.8.18`; 75 kelompok regresi deterministik lulus pada dua build berurutan dengan hash bundle identik.
+- Source yang sama telah dipasang pada deployment produksi Apps Script Version 50 dan diverifikasi memuat badge v0.8.18 serta dialog pintasan.
+
 ## 0.8.17 — 2026-09-16
 
 - Menambahkan menu **Hapus kegiatan** pada formulir edit dengan dialog konfirmasi yang menjelaskan dampak pada kalender, Kanban, rekap, snapshot WFH, dan lampiran Drive.

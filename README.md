@@ -2,7 +2,7 @@
 
 Aplikasi pencatatan kegiatan pribadi berbasis Google Sheets dan Google Apps Script. Ini alat bantu kerja mandiri, bukan portal resmi BKN atau sistem penilaian SKP.
 
-**Status paket:** Beta v0.8.17 berlisensi MIT. Source telah melewati 73 kelompok regresi deterministik dan pemindaian privasi; uji akun Google kedua serta perangkat fisik tetap bagian dari pengujian Beta.
+**Status paket:** Beta v0.8.18 berlisensi MIT. Source telah melewati 75 kelompok regresi deterministik, build reproducible, dan pemindaian privasi; uji akun Google kedua serta perangkat fisik tetap bagian dari pengujian Beta.
 
 Kode dan aset asli dalam paket ini menggunakan [lisensi MIT](LICENSE). Asal aset, icon generator, dan batas penggunaan merek dicatat dalam [Asset provenance](ASSET-PROVENANCE.md). Merek dan layanan Google tetap milik pemegang hak masing-masing; aplikasi ini bukan produk resmi Google atau BKN.
 

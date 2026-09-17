@@ -1,5 +1,5 @@
-/** @version 0.8.17 · Private installation. No author database fallback. */
-const APP_VERSION = '0.8.17';
+/** @version 0.8.18 · Private installation. No author database fallback. */
+const APP_VERSION = '0.8.18';
 const HEADERS = ['ID','Tanggal','Kegiatan','Hasil','Bukti','Status','Tindak lanjut','Dibuat','Diperbarui','Revisi'];
 const TAB_NAME = 'Catatan Harian';
 const PUBLIC_TEMPLATE_PROPERTY = 'PUBLIC_TEMPLATE_SPREADSHEET_ID';

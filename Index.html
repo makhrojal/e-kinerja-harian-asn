@@ -1318,6 +1318,13 @@ header p {
   font-weight: 700;
   letter-spacing: 0.01em;
   text-transform: none;
+  transition: all 0.2s ease;
+}
+
+:root[data-theme="dark"] .streak-badge {
+  background: rgba(234, 88, 12, 0.16);
+  color: #fb923c;
+  border-color: rgba(234, 88, 12, 0.35);
 }
 
 .streak-icon {
@@ -1326,8 +1333,8 @@ header p {
 }
 
 .progress-container {
-  background: #f8fafc;
-  border: 1px solid var(--border-light);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 12px 16px;
   margin: 12px 0 16px;
@@ -1972,6 +1979,114 @@ dialog::backdrop {
   font-size: 12px;
 }
 
+/* Shortcuts Cheatsheet Modal (ST1-11, FR-204) */
+.shortcuts-dialog {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 0;
+  width: min(580px, 94vw);
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: var(--shadow-float);
+  background: var(--bg-surface);
+}
+
+.shortcuts-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-app);
+}
+
+.shortcuts-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-primary);
+}
+
+.shortcuts-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  max-height: calc(85vh - 70px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.shortcuts-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shortcuts-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+  margin-bottom: 2px;
+}
+
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  transition: background 0.15s ease;
+}
+
+.shortcut-row:hover {
+  background: var(--bg-app);
+}
+
+.shortcut-desc {
+  font-size: 13px;
+  color: var(--ink-primary);
+}
+
+.shortcut-keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.shortcut-keys kbd {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: var(--bg-app);
+  color: var(--ink-primary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.08);
+}
+
+.hotkey-btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease;
+}
+.hotkey-btn-link:hover {
+  color: var(--brand);
+}
+
 /* Formal Print Layout for e-Kinerja */
 #printHeader, #printFooter {
   display: none;
@@ -2133,6 +2248,7 @@ dialog::backdrop {
 
 /* Activity Heatmap (ST2-04 / ST1-09) */
 .heatmap-panel {
+  position: relative;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -2140,6 +2256,71 @@ dialog::backdrop {
   margin-bottom: 20px;
   box-shadow: var(--shadow-xs);
   transition: background 0.2s, border-color 0.2s;
+}
+
+.heatmap-tooltip {
+  position: absolute;
+  z-index: 120;
+  pointer-events: none;
+  padding: 6px 12px;
+  background: var(--bg-surface);
+  color: var(--ink-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+  font-weight: 500;
+  box-shadow: var(--shadow-float);
+  transform: translate(-50%, -100%) translateY(-8px);
+  transition: opacity 0.12s ease;
+  white-space: nowrap;
+}
+
+:root[data-theme="dark"] .heatmap-tooltip {
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(8px);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Template Cepat Kegiatan ASN (ST1-01, ST1-10) */
+.template-chips-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 10px;
+}
+
+.template-chip-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.template-chip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  padding: 3px 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  line-height: 1.35;
+  user-select: none;
+}
+
+.template-chip:hover {
+  background: var(--bg-app);
+  border-color: var(--brand);
+  color: var(--brand);
+  transform: translateY(-1px);
+}
+
+.template-chip.mini {
+  padding: 2.5px 8px;
+  font-size: 11px;
 }
 .heatmap-head {
   display: flex;
@@ -3293,6 +3474,16 @@ dialog::backdrop {
 .todo-check-btn:disabled{opacity:.5;cursor:wait}.todo-card .mini:disabled{opacity:.5}#quickMessage{font-size:13px;color:#991b1b;white-space:pre-wrap}.day-dot.wait{background:#854d0e}
 @media(max-width:768px){button,.todo-card button.mini{min-height:44px!important;min-width:44px!important}.todo-check-btn{flex:0 0 22px!important;width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;max-width:22px!important;max-height:22px!important;aspect-ratio:1/1!important}.sidebar{background:rgba(248,250,252,.97)}#quickAddDialog input,#quickAddDialog select,#quickAddDialog textarea{font-size:16px!important}.undo-toast{max-width:calc(100vw - 24px)}}
 @media(forced-colors:active){button{border:1px solid ButtonText}.todo-check-btn{forced-color-adjust:auto}}
+
+/* Accessibility: Reduced Motion (ST1-11) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -3363,7 +3554,7 @@ dialog::backdrop {
         <span>Install Aplikasi</span>
       </button>
       <div class="semver-badge">
-        <span class="semver-tag">v0.8.17</span>
+        <span class="semver-tag">v0.8.18</span>
         <span>Catatan pribadi ASN</span>
       </div>
       <div class="hotkey-hint">
@@ -3371,6 +3562,11 @@ dialog::backdrop {
       </div>
       <div class="hotkey-hint">
         <span>Form Lengkap:</span> <kbd>Alt</kbd>+<kbd>N</kbd>
+      </div>
+      <div class="hotkey-hint">
+        <button type="button" id="shortcutsHelpBtn" class="hotkey-btn-link" title="Lihat daftar lengkap tombol pintas keyboard">
+          <span>Pintasan:</span> <kbd>?</kbd>
+        </button>
       </div>
     </div>
   </aside>
@@ -3500,6 +3696,7 @@ dialog::backdrop {
           </div>
         </div>
         <div id="heatmapGrid" class="heatmap-grid" role="region" aria-label="Kisi hari bulan terpilih"></div>
+        <div id="heatmapTooltip" class="heatmap-tooltip" role="tooltip" style="display:none"></div>
         <div id="heatmapSelectedDay" class="heatmap-day-meta" style="display:none"></div>
       </section>
 
@@ -3830,6 +4027,14 @@ dialog::backdrop {
               <span>Kegiatan *</span>
               <span class="char-count" id="activityCount">0 / 3000</span>
             </div>
+            <div class="template-chips-bar" role="group" aria-label="Template cepat kegiatan ASN">
+              <span class="template-chip-label">Preset:</span>
+              <button type="button" class="template-chip" data-template="Penyusunan Kertas Kerja ">📋 Kertas Kerja</button>
+              <button type="button" class="template-chip" data-template="Verifikasi dan Pengujian Dokumen SPJ ">🔍 Verifikasi SPJ</button>
+              <button type="button" class="template-chip" data-template="Rapat Koordinasi ">👥 Rapat</button>
+              <button type="button" class="template-chip" data-template="Penyusunan Notula dan Laporan ">📝 Notula</button>
+              <button type="button" class="template-chip" data-template="Rekonsiliasi dan Pemutakhiran Data ">📊 Rekonsiliasi</button>
+            </div>
             <textarea id="activity" required maxlength="3000" placeholder="Apa yang dikerjakan?"></textarea>
           </label>
           <label>
@@ -3865,7 +4070,7 @@ dialog::backdrop {
       </div>
     </section>
 
-    <footer>Jumlah kegiatan adalah ringkasan pencatatan, bukan penilaian kinerja. Zona tanggal mengikuti setelan spreadsheet.<span id="buildVersion">v0.8.17</span> · Streak: hari kalender dengan catatan; hari ini boleh belum terisi.</footer>
+    <footer>Jumlah kegiatan adalah ringkasan pencatatan, bukan penilaian kinerja. Zona tanggal mengikuti setelan spreadsheet.<span id="buildVersion">v0.8.18</span> · Streak: hari kalender dengan catatan; hari ini boleh belum terisi.</footer>
   </main>
 </div>
 
@@ -3972,6 +4177,13 @@ dialog::backdrop {
     </div>
     <div class="quick-add-body">
       <input maxlength="3000" type="text" id="quickAddInput" class="quick-add-input" placeholder="Ketik kegiatan, lalu pilih prioritas di bawah..." autocomplete="off" required>
+      <div class="template-chips-bar" role="group" aria-label="Template cepat kegiatan ASN" style="margin:4px 0 6px">
+        <span class="template-chip-label">Preset:</span>
+        <button type="button" class="template-chip mini" data-target="quick" data-template="Penyusunan Kertas Kerja ">📋 Kertas Kerja</button>
+        <button type="button" class="template-chip mini" data-target="quick" data-template="Verifikasi Dokumen SPJ ">🔍 Verifikasi SPJ</button>
+        <button type="button" class="template-chip mini" data-target="quick" data-template="Rapat Koordinasi ">👥 Rapat</button>
+        <button type="button" class="template-chip mini" data-target="quick" data-template="Penyusunan Notula ">📝 Notula</button>
+      </div>
       <div id="quickAddSuggestionBar" class="quick-suggestion-bar" style="display:none">
         <div id="quickAddDateChip" class="date-chip-btn" role="button" tabindex="0" title="Klik untuk menerapkan tanggal ini">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
@@ -4020,6 +4232,81 @@ dialog::backdrop {
   </form>
 </dialog>
 
+<dialog id="shortcutsDialog" class="shortcuts-dialog" aria-labelledby="shortcutsTitle">
+  <div class="shortcuts-header">
+    <div id="shortcutsTitle" class="shortcuts-title">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10"/></svg>
+      Pintasan Keyboard (Shortcuts)
+    </div>
+    <button type="button" id="closeShortcutsBtn" class="mini" title="Tutup cheatsheet (Esc)">✕ Tutup</button>
+  </div>
+  <div class="shortcuts-body">
+    <div class="shortcuts-group">
+      <div class="shortcuts-group-title">Navigasi Antar Tab</div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Ke Beranda (Home)</span>
+        <span class="shortcut-keys"><kbd>1</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Ke Form Tambah Kegiatan</span>
+        <span class="shortcut-keys"><kbd>2</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Ke Papan Kanban</span>
+        <span class="shortcut-keys"><kbd>3</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Ke Kalender & Agenda</span>
+        <span class="shortcut-keys"><kbd>4</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Ke Rekap & Laporan WFH</span>
+        <span class="shortcut-keys"><kbd>5</kbd></span>
+      </div>
+    </div>
+
+    <div class="shortcuts-group">
+      <div class="shortcuts-group-title">Pencatatan & Aksi Cepat</div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Catat Kilat (Quick Add)</span>
+        <span class="shortcut-keys"><kbd>Q</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Form Lengkap Baru</span>
+        <span class="shortcut-keys"><kbd>Alt</kbd>+<kbd>N</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Fokus Kotak Cari (Beranda)</span>
+        <span class="shortcut-keys"><kbd>/</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Ganti Tema Tampilan (Auto/Dark/Light)</span>
+        <span class="shortcut-keys"><kbd>D</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Geser Bulan / Periode</span>
+        <span class="shortcut-keys"><kbd>Alt</kbd>+<kbd>←</kbd> / <kbd>→</kbd></span>
+      </div>
+    </div>
+
+    <div class="shortcuts-group">
+      <div class="shortcuts-group-title">Jendela Dialog & Pembatalan</div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Buka Bantuan Pintasan ini</span>
+        <span class="shortcut-keys"><kbd>?</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Tutup Dialog / Batal / Kembali ke Beranda</span>
+        <span class="shortcut-keys"><kbd>Esc</kbd></span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-desc">Simpan Cepat (di Catat Kilat)</span>
+        <span class="shortcut-keys"><kbd>Enter</kbd></span>
+      </div>
+    </div>
+  </div>
+</dialog>
+
 <div id="undoToast" class="undo-toast" role="status" aria-live="polite" hidden>
   <div class="undo-toast-content">
     <span id="undoToastText">Kegiatan ditandai selesai.</span>
@@ -4053,20 +4340,20 @@ function updateThemeDOM(setting) {
     rootEl.setAttribute('data-theme', effective);
     rootEl.setAttribute('data-theme-setting', setting);
   }
-  
+
   const labels = { auto: 'Auto', dark: 'Gelap', light: 'Terang' };
   const sideLabels = {
     auto: 'Tema: Sistem (' + (effective === 'dark' ? 'Gelap' : 'Terang') + ')',
     dark: 'Tema: Gelap',
     light: 'Tema: Terang'
   };
-  
+
   const labelEl = typeof $ === 'function' ? $('themeToggleLabel') : null;
   if (labelEl) labelEl.textContent = labels[setting] || 'Auto';
-  
+
   const sideLabelEl = typeof $ === 'function' ? $('sideThemeLabel') : null;
   if (sideLabelEl) sideLabelEl.textContent = sideLabels[setting] || 'Tema';
-  
+
   const btn = typeof $ === 'function' ? $('themeToggleBtn') : null;
   if (btn) {
     if (btn.setAttribute) {
@@ -4110,7 +4397,7 @@ function initTheme() {
     try { saved = localStorage.getItem(THEME_KEY) || 'auto'; } catch(e) {}
   }
   setTheme(saved, false);
-  
+
   if (typeof window !== 'undefined' && window.matchMedia) {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = () => {
@@ -4121,7 +4408,7 @@ function initTheme() {
     if (mq.addEventListener) mq.addEventListener('change', handler);
     else if (mq.addListener) mq.addListener(handler);
   }
-  
+
   const topBtn = typeof $ === 'function' ? $('themeToggleBtn') : null;
   if (topBtn) topBtn.onclick = cycleTheme;
   const sideBtn = typeof $ === 'function' ? $('sideThemeToggleBtn') : null;
@@ -4143,7 +4430,7 @@ function call(name,...args){
  return Promise.resolve().then(()=>{const data=JSON.parse(localStorage.getItem(localKey)||'[]');
  if(name==='getRecord')return data.find(r=>r.id===args[0])||null;
  if(name==='getRecords')return data.filter(r=>r.date>=args[0]&&r.date<=args[1]);
- if(name==='getSnapshot')return {version:'0.8.17-demo',timeZone:'Asia/Jakarta',today:Domain.ymd(new Date(),'Asia/Jakarta'),spreadsheetUrl:'',records:data.filter(r=>r.date>=args[0]&&r.date<=args[1]),todayRecords:data.filter(r=>r.date===Domain.ymd(new Date(),'Asia/Jakarta')),activeDates:data.map(r=>r.date)};
+ if(name==='getSnapshot')return {version:'0.8.18-demo',timeZone:'Asia/Jakarta',today:Domain.ymd(new Date(),'Asia/Jakarta'),spreadsheetUrl:'',records:data.filter(r=>r.date>=args[0]&&r.date<=args[1]),todayRecords:data.filter(r=>r.date===Domain.ymd(new Date(),'Asia/Jakarta')),activeDates:data.map(r=>r.date)};
  if(name==='getDistributionInfo')return {ready:false,copyUrl:'',reason:'Master template publik belum tersedia dalam mode demo.'};
  if(name==='getDriveAuthorizationStatus')return {authorized:true,authorizationUrl:''};
  if(name==='getAttachments')return JSON.parse(localStorage.getItem(attachmentLocalKey)||'[]').filter(a=>a.activityId===args[0]&&a.state!=='detached');
@@ -4445,7 +4732,7 @@ function createTodoCard(r, context){
   const card = node('article', undefined, 'todo-card' + (selectedRecordIds.has(r.id) ? ' selected' : ''));
   const { priority, clean } = parsePriority(r.activity);
   const isDone = r.status === 'Selesai';
-  
+
   const selectCheck = node('input', undefined, 'card-select-checkbox');
   selectCheck.type = 'checkbox';
   selectCheck.checked = selectedRecordIds.has(r.id);
@@ -4466,17 +4753,17 @@ function createTodoCard(r, context){
     e.stopPropagation();
     toggleStatus(r);
   };
-  
+
   const main = node('div', undefined, 'todo-main');
   const header = node('div', undefined, 'todo-header');
   const meta = node('div', undefined, 'todo-meta');
-  
+
   meta.append(node('span', pretty(r.date), 'eyebrow'));
   meta.append(node('span', r.status, 'badge' + (isDone ? '' : ' wait')));
   if (priority !== 'P4') {
     meta.append(node('span', priority, 'priority-pill ' + priority.toLowerCase()));
   }
-  
+
   const actionBtn = node('button', context === 'home' ? 'Lihat' : 'Edit', 'mini');
   actionBtn.type = 'button';
   actionBtn.onclick = () => {
@@ -4489,13 +4776,13 @@ function createTodoCard(r, context){
     }
   };
   header.append(meta, actionBtn);
-  
+
   const title = node('h3', clean, 'todo-title' + (isDone ? ' done' : ''));
   main.append(header, title);
   renderResultContent(r, main, 'todo-desc');
   if (r.evidence) main.append(node('p', 'Bukti: ' + r.evidence, 'todo-desc'));
   if (r.followup) main.append(node('p', 'Tindak lanjut: ' + r.followup, 'todo-desc'));
-  
+
   card.append(checkBtn, main);
   return card;
 }
@@ -4861,6 +5148,17 @@ function openQuickAdd(date=selected||today){
 function closeQuick(){if(quickBusy)return;$('quickAddDialog').close();}
 $('closeQuickAdd').onclick=closeQuick;$('quickAddDialog').addEventListener('cancel',e=>{if(quickBusy)e.preventDefault();});
 if($('quickAddBtn'))$('quickAddBtn').onclick=()=>openQuickAdd();
+
+function openShortcutsHelp(){
+  const d = $('shortcutsDialog');
+  if(d && typeof d.showModal === 'function') d.showModal();
+}
+function closeShortcutsHelp(){
+  const d = $('shortcutsDialog');
+  if(d && d.open) d.close();
+}
+if($('shortcutsHelpBtn')) $('shortcutsHelpBtn').onclick = openShortcutsHelp;
+if($('closeShortcutsBtn')) $('closeShortcutsBtn').onclick = closeShortcutsHelp;
 if($('quickAddInput'))$('quickAddInput').oninput=handleQuickAddInput;
 
 if($('quickAddDateChip')){
@@ -5459,9 +5757,15 @@ function renderTodayFocus() {
   if (!list) return;
   list.replaceChildren();
 
-  // Streak Counter
+  // Streak Counter (ST1-09)
   const streak = calculateStreak();
   $('streakCount').textContent = dataReady?streak:'—';
+  const streakBadge = $('streakBadge');
+  if (streakBadge) {
+    streakBadge.title = streak > 0
+      ? `Hebat! Anda konsisten mencatat kegiatan ${streak} hari berturut-turut.`
+      : 'Mulai catat kegiatan hari ini untuk mengaktifkan streak produktivitas!';
+  }
   $('focusDateLabel').textContent = new Intl.DateTimeFormat('id-ID', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone
   }).format(new Date());
@@ -5617,7 +5921,28 @@ function renderHeatmap() {
       tile.append(countEl);
     }
 
+    tile.onpointerenter = () => {
+      const tip = $('heatmapTooltip');
+      const gridWrap = $('heatmapGrid');
+      if (!tip || !gridWrap || !gridWrap.parentElement) return;
+      const dayRecs = recordsByDate.get(fullDate) || [];
+      const doneCount = dayRecs.filter(r => r.status === 'Selesai').length;
+      const activeCount = count - doneCount;
+      tip.innerHTML = `<strong>${dayName}, ${day} ${monthName}</strong>: ${count} kegiatan <span style="opacity:0.8">(${doneCount} selesai, ${activeCount} aktif)</span>`;
+      tip.style.display = 'block';
+      const rect = tile.getBoundingClientRect();
+      const panelRect = gridWrap.parentElement.getBoundingClientRect();
+      tip.style.left = (rect.left + rect.width / 2 - panelRect.left) + 'px';
+      tip.style.top = (rect.top - panelRect.top) + 'px';
+    };
+    tile.onpointerleave = () => {
+      const tip = $('heatmapTooltip');
+      if (tip) tip.style.display = 'none';
+    };
+
     tile.onclick = () => {
+      const tip = $('heatmapTooltip');
+      if (tip) tip.style.display = 'none';
       selectHeatmapDay(fullDate, count, recordsByDate.get(fullDate) || []);
     };
     tile.onkeydown = e => {
@@ -5704,9 +6029,43 @@ function renderHome(){
   filterHomeNotes($('homeSearchInput')?.value || '');
 }
 
-// Global Keyboard Shortcuts
+// Global Keyboard Shortcuts (ST1-11, FR-204)
 window.addEventListener('keydown',e=>{
-  const inField=['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName);
+  const inField=['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName) || !!document.activeElement?.isContentEditable;
+
+  if(!inField && !e.altKey && !e.ctrlKey && !e.metaKey){
+    // Cheatsheet modal: '?' (Shift + /)
+    if(e.key === '?' || (e.shiftKey && e.key === '/')){
+      e.preventDefault();
+      const d = $('shortcutsDialog');
+      if(d && d.open) d.close();
+      else openShortcutsHelp();
+      return;
+    }
+    // Focus search input: '/'
+    if(e.key === '/'){
+      const s = $('homeSearchInput');
+      if(s && !$('homeView').hidden){
+        e.preventDefault();
+        s.focus();
+        s.select();
+        return;
+      }
+    }
+    // Theme toggle: 'd' or 'D'
+    if(e.key === 'd' || e.key === 'D'){
+      e.preventDefault();
+      cycleTheme();
+      return;
+    }
+    // Tab fast navigation: 1..5
+    if(e.key === '1'){ e.preventDefault(); go('home'); return; }
+    if(e.key === '2'){ e.preventDefault(); if(!formDirty()){resetForm();$('date').value=selected;$('formDateLabel').textContent=pretty(selected);formBaseline=formSnapshot();} go('input'); return; }
+    if(e.key === '3'){ e.preventDefault(); go('kanban'); return; }
+    if(e.key === '4'){ e.preventDefault(); go('calendar'); return; }
+    if(e.key === '5'){ e.preventDefault(); go('report'); return; }
+  }
+
   if(!inField&&(e.key==='q'||e.key==='Q')&&!e.altKey&&!e.ctrlKey&&!e.metaKey){
     e.preventDefault();
     openQuickAdd();
@@ -5717,13 +6076,12 @@ window.addEventListener('keydown',e=>{
     openForm();
   }else if(e.key==='Escape'){
     if(busy||quickBusy||mutationBusy){e.preventDefault();return;}
-    if($('copyDialog').open){$('copyDialog').close();return;}
-    if($('quickAddDialog').open){
+    if($('shortcutsDialog')?.open){$('shortcutsDialog').close();return;}
+    if($('copyDialog')?.open){$('copyDialog').close();return;}
+    if($('quickAddDialog')?.open){
       $('quickAddDialog').close();
     }else if(!$('inputView').hidden){
       go('home'); // Escape preserves the draft.
-    }else if($('copyDialog').open){
-      $('copyDialog').close();
     }
   }else if(e.altKey&&e.key==='ArrowLeft'){
     e.preventDefault();
@@ -5867,7 +6225,7 @@ function applyResultFormat(textareaId, formatType){
 
   const replacement=transformed.join('\n');
   const newVal=val.slice(0,lineStart)+replacement+val.slice(lineEnd);
-  
+
   if(newVal.length<=(Number(ta.maxLength)||3000)){
     ta.value=newVal;
     const newCursor=lineStart+replacement.length;
@@ -5946,6 +6304,27 @@ if($('quickFormatChecklistBtn'))$('quickFormatChecklistBtn').onclick=()=>applyRe
 if($('quickFormatBulletBtn'))$('quickFormatBulletBtn').onclick=()=>applyResultFormat('quickAddResult','bullet');
 if($('quickFormatTextBtn'))$('quickFormatTextBtn').onclick=()=>applyResultFormat('quickAddResult','text');
 if($('quickAddResult'))$('quickAddResult').addEventListener('keydown',e=>handleListSmartEnter(e,'quickAddResult'));
+
+// Delegate click handler for ASN Activity Template Chips (ST1-01, ST1-10)
+document.addEventListener('click', e => {
+  const chip = e.target.closest('.template-chip');
+  if (!chip) return;
+  const tpl = chip.getAttribute('data-template');
+  if (!tpl) return;
+  const isQuick = chip.getAttribute('data-target') === 'quick';
+  const targetId = isQuick ? 'quickAddInput' : 'activity';
+  const el = $(targetId);
+  if (!el) return;
+  const current = el.value.trim();
+  if (!current) {
+    el.value = tpl;
+  } else if (!current.includes(tpl.trim())) {
+    el.value = tpl + current;
+  }
+  el.focus();
+  if (typeof updateCharCounts === 'function') updateCharCounts();
+  if (isQuick && typeof handleQuickAddInput === 'function') handleQuickAddInput();
+});
 
 function updateOnlineStatus(forced){
   if(typeof forced==='boolean')isOnline=forced;

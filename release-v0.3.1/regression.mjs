@@ -644,6 +644,60 @@ assert.ok(!undoDom.undoToast.classList.contains('visible'));
 assert.equal(undoMessageText, 'Perubahan status dibatalkan dan tersimpan.');
 
 ok('End-to-End 5-Second Undo Action Verification with Animated Progress Countdown (QA-LEGACY-01, TASK-102)');
+
+// Test Keyboard Shortcuts Cheatsheet and Power-User Navigation (ST1-11, FR-204)
+assert.ok(raw.includes('id="shortcutsDialog"'));
+assert.ok(raw.includes('id="shortcutsHelpBtn"'));
+assert.ok(raw.includes('id="closeShortcutsBtn"'));
+assert.ok(raw.includes('.shortcuts-dialog'));
+assert.ok(raw.includes('Pintasan Keyboard (Shortcuts)'));
+
+// Verify helper open/close
+$('shortcutsDialog').open = false;
+vm.runInContext('openShortcutsHelp()', fc);
+assert.equal($('shortcutsDialog').open, true);
+vm.runInContext('closeShortcutsHelp()', fc);
+assert.equal($('shortcutsDialog').open, false);
+
+// Verify '?' opens dialog when not in input field
+listeners.keydown({ key: '?', preventDefault(){} });
+assert.equal($('shortcutsDialog').open, true);
+
+// Verify Esc closes shortcuts dialog first
+listeners.keydown({ key: 'Escape', preventDefault(){} });
+assert.equal($('shortcutsDialog').open, false);
+
+// Verify number hotkeys switch tabs
+listeners.keydown({ key: '3', preventDefault(){} });
+assert.equal(vm.runInContext("$('kanbanView').hidden", fc), false);
+listeners.keydown({ key: '1', preventDefault(){} });
+assert.equal(vm.runInContext("$('homeView').hidden", fc), false);
+
+// Verify typing inside input fields does NOT trigger hotkeys
+fc.document.activeElement = { tagName: 'INPUT' };
+listeners.keydown({ key: '?', preventDefault(){} });
+assert.equal($('shortcutsDialog').open, false);
+listeners.keydown({ key: '3', preventDefault(){} });
+assert.equal(vm.runInContext("$('kanbanView').hidden", fc), true); // Stays on homeView
+fc.document.activeElement = { tagName: 'BODY' };
+
+ok('Keyboard Shortcuts Cheatsheet and Power-User Navigation (ST1-11, FR-204)');
+
+// Test Visual Streak, Preset Template Chips, Heatmap Tooltip, and Reduced Motion (ST1-01, ST1-09, ST1-10, ST1-11, ST2-04)
+assert.ok(raw.includes('.streak-badge'));
+assert.ok(raw.includes(':root[data-theme="dark"] .streak-badge'));
+assert.ok(raw.includes('id="heatmapTooltip"'));
+assert.ok(raw.includes('.heatmap-tooltip'));
+assert.ok(raw.includes('.template-chips-bar'));
+assert.ok(raw.includes('Penyusunan Kertas Kerja'));
+assert.ok(raw.includes('prefers-reduced-motion: reduce'));
+
+// Test streak rendering
+vm.runInContext("activeDates=['2026-09-08','2026-09-09'];today='2026-09-09';dataReady=true;renderTodayFocus();", fc);
+assert.equal(String($('streakCount').textContent), '2');
+assert.match($('streakBadge').title, /2 hari berturut-turut/);
+
+ok('Visual Streak Indicator, Preset ASN Activity Template Chips, Heatmap Glass Tooltip, and Reduced Motion (ST1-01, ST1-09, ST1-10, ST1-11, ST2-04)');
 const bundleSource=read('Kode.gs'),serverSource=read('Server.gs'),bundleCtx=vm.createContext({});vm.runInContext(bundleSource,bundleCtx);assert.equal(vm.runInContext('APP_HTML',bundleCtx),html);assert.ok(bundleSource.includes(serverSource));ok('Generated bundle exactly contains current server and client sources');
 assert.equal(vm.runInContext('APP_VERSION',ctx),pkg.version);assert.ok(raw.includes(`<span class="semver-tag">v${pkg.version}</span>`));assert.ok(raw.includes(`<span id="buildVersion">v${pkg.version}</span>`));ok('Package, server, visible badge, and generated bundle versions stay synchronized');
 const result={version:pkg.version,scope:'Deterministic source/backend/DOM/RPC mocks; cloud latency and physical mobile validation separate',passed,sourceHashes:Object.fromEntries(['Server.gs','Index.html','client-domain.js','client-sync.js','Kode.gs'].map(f=>[f,crypto.createHash('sha256').update(read(f)).digest('hex')]))};fs.writeFileSync(new URL('results.json',import.meta.url),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));

@@ -1,9 +1,9 @@
 /**
  * Service Worker E-Kinerja Harian ASN
- * Version: v0.8.17 (safe activity deletion)
+ * Version: v0.8.18 (keyboard, presets, streak, and accessibility refinements)
  * Purpose: Offline Application Shell Cache & Instant Navigation
  */
-const CACHE_NAME = 'ekinerja-shell-v0.8.17';
+const CACHE_NAME = 'ekinerja-shell-v0.8.18';
 const STATIC_ASSETS = [
   './',
   './Index.html',
